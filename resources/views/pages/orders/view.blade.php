@@ -33,7 +33,7 @@
                 <div>Transaction Time : {{ $order->transaction_time }}</div>
                 <div>Total Item : {{ $order->total_item }}</div> --}}
 
-                <div class="card col-4" id="card-transaction">
+                <div class="card col-lg-4 col-md-6 col-sm-6 col-12" id="card-transaction">
                     <div class="card-body pb-0">
                         <p class="text-muted">Detail Transaction</p>
                         <div class="form-group row mb-1">
