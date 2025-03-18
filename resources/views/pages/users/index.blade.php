@@ -96,7 +96,7 @@
                                                     <div class="d-flex">
                                                         @if ( auth()->user()->roles == "admin" )
                                                             <a href='{{ route('user.edit', $user->id) }}'
-                                                                class="btn btn-sm btn-info btn-icon">
+                                                                class="btn btn-sm btn-primary btn-icon">
                                                                 <i class="fas fa-edit"></i>
                                                                 Edit
                                                             </a>

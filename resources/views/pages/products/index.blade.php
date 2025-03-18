@@ -87,11 +87,11 @@
                                                 </td>
                                                 <td>
                                                     {{-- {{ $product->category }} --}}
-                                                    @if ($product->category == 'food')
-                                                        Food
-                                                    @elseif ($product->category == 'drink')
-                                                        Drink
-                                                    @elseif ($product->category == 'other')
+                                                    @if ($data->category == 'minuman')
+                                                        Minuman
+                                                    @elseif ($data->category == 'makanan')
+                                                        Makanan
+                                                    @elseif ($data->category == 'other')
                                                         Other
                                                     @endif
                                                 </td>
@@ -116,7 +116,7 @@
                                                     <div class="d-flex">
                                                         @if ( auth()->user()->roles == "admin" )
                                                             <a href='{{ route('product.edit', $product->id) }}'
-                                                                class="btn btn-sm btn-info btn-icon">
+                                                                class="btn btn-sm btn-primary btn-icon">
                                                                 <i class="fas fa-edit"></i>
                                                                 Edit
                                                             </a>
@@ -128,13 +128,13 @@
                                                             </a>
                                                         @endif
 
-                                                        <form action="#">
-                                                        {{-- <form action="{{ route('product.destroy', $product->id) }}"
-                                                            method="POST" class="ml-2"> --}}
-                                                            {{-- <input type="hidden" name="_method" value="DELETE" />
+                                                        {{-- <form action="#"> --}}
+                                                        <form action="{{ route('product.destroy', $product->id) }}"
+                                                            method="POST" class="ml-2">
+                                                            <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}" /> --}}
-                                                            <button class="btn btn-sm btn-secondary btn-icon confirm-delete ml-2">
+                                                                value="{{ csrf_token() }}" />
+                                                                <button class="btn btn-sm btn-danger btn-icon confirm-delete ml-2">
                                                                 <i class="fas fa-times"></i> Delete
                                                             </button>
                                                         </form>
