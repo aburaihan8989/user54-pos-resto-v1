@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Orders')
+@section('title', 'Orders By Products')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,12 +11,12 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Orders</h1>
+                <h1>Orders By Products</h1>
 
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('order.index') }}">Orders</a></div>
-                    <div class="breadcrumb-item">All Orders</div>
+                    <div class="breadcrumb-item"><a href="{{ route('order-product') }}">By Products</a></div>
+                    <div class="breadcrumb-item">Orders By Products</div>
                 </div>
             </div>
             <div class="section-body">
@@ -25,23 +25,23 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Orders</h2>
+                <h2 class="section-title">Orders By Products</h2>
                 <p class="section-lead">
-                    You can view all Orders, such as transaction time, amount and more.
+                    You can view all Orders by Products, such as transaction time, amount and more.
                 </p>
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Orders</h4>
+                                <h4>Orders By Products</h4>
                             </div>
                             <div class="card-body">
 
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('order.index') }}">
+                                    <form method="GET" action="{{ route('order-product') }}">
                                         <div class="input-group">
-                                            <input type="date" class="form-control" placeholder="Search Date" name="transaction_time">
+                                            <input type="date" class="form-control" placeholder="Search Date" name="created_at">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -55,11 +55,9 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Transaction Time</th>
-                                            <th>Total Price</th>
-                                            <th>Total Item</th>
-                                            <th>Payment Method</th>
-                                            <th>Nama Kasir</th>
+                                            <th>Product</th>
+                                            <th>Total Terjual</th>
+                                            <th>Total Transaksi</th>
                                         </tr>
                                         <?php $no = 1; ?>
                                         @foreach ($orders as $order)
@@ -68,19 +66,13 @@
                                                     {{ $loop->iteration + $orders->firstItem() - 1 }}
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('order.show', $order->order_id) }}">{{ $order->transaction_time }}</a>
-                                                </td>
-                                                <td>
-                                                    Rp. {{ number_format(($order->total_price), 0, ",", ".") }}
-                                                </td>
-                                                <td>
-                                                    {{ $order->total_item }}
-                                                </td>
-                                                <td>
-                                                    {{ $order->payment_method }}
-                                                </td>
-                                                <td>
                                                     {{ $order->name }}
+                                                </td>
+                                                <td>
+                                                    {{ $order->count }}
+                                                </td>
+                                                <td>
+                                                    Rp. {{ number_format(($order->total), 0, ",", ".") }}
                                                 </td>
                                             </tr>
                                             <?php $no++; ?>

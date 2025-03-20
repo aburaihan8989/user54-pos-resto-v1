@@ -38,4 +38,39 @@ class OrderController extends Controller
 
         return view('pages.orders.view', compact('order', 'kasir', 'orderItems', 'orderSum'));
     }
+
+    public function view(Request $request)
+    {
+        // $orders = \App\Models\Order::with('kasir')->orderBy('transaction_time', 'desc')->paginate(10);
+        // ->whereDate('order_items.created_at',date('Y-m-d',strtotime("today")))
+
+        //get data orders
+        $orders = DB::table('order_items')
+        ->when($request->input('created_at'), function ($query, $created_at) {
+            return $query->where('order_items.created_at', 'like', '%' . $created_at . '%');
+            // return $query->whereDate('order_items.created_at',date('Y-m-d',strtotime("today")));
+        })
+        ->leftJoin('products','products.id','=','order_items.product_id')
+        ->select('products.name',
+             DB::raw('SUM(order_items.quantity) as count'),
+             DB::raw('SUM(order_items.quantity * products.price) as total'))
+        ->groupBy('products.name')
+        ->orderBy('total','desc')
+        ->paginate(10);
+        //sort by transaction_time desc
+
+        // $top_sales = DB::table('order_items')
+        // ->leftJoin('products','products.id','=','order_items.product_id')
+        // ->select('products.name',
+        //      DB::raw('SUM(order_items.quantity) as count'),
+        //      DB::raw('SUM(order_items.quantity * products.price) as total'))
+        // ->groupBy('products.name')
+        // ->orderBy('count','desc')
+        // ->limit(5)
+        // ->get();
+
+
+        return view('pages.orders.view2', compact('orders'));
+    }
+
 }

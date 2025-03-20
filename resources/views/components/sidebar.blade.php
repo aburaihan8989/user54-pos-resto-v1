@@ -44,6 +44,9 @@
                     <li>
                         <a class="nav-link" href="{{ route('order.index') }}">All Orders</a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="{{ route('order-product') }}">By Product</a>
+                    </li>
 
                 </ul>
             </li>
