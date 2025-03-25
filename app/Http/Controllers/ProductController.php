@@ -33,7 +33,7 @@ class ProductController extends Controller
             'cost_price' => 'required|integer',
             'price' => 'required|integer',
             // 'stock' => 'required|integer',
-            'category' => 'required|in:food,drink,snack',
+            'category' => 'required',
             'image' => 'required|image|mimes:png,jpg,jpeg'
         ]);
 
@@ -69,7 +69,7 @@ class ProductController extends Controller
             'cost_price' => 'required|integer',
             'price' => 'required|integer',
             // 'stock' => 'required|integer',
-            'category' => 'required|in:food,drink,snack',
+            'category' => 'required',
             // 'image' => 'required|image|mimes:png,jpg,jpeg'
         ]);
 
