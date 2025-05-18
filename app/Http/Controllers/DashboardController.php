@@ -21,12 +21,12 @@ class DashboardController extends Controller
         $count_before = Order::whereDate('transaction_time',date('Y-m-d',strtotime("yesterday")))->count();
 
         $total_price = DB::table('order_items')
-        ->leftJoin('products', 'order_items.product_id', '=', 'products.id')
-        ->sum(DB::raw('order_items.quantity * products.price'));
+            ->leftJoin('products', 'order_items.product_id', '=', 'products.id')
+            ->sum(DB::raw('order_items.quantity * products.price'));
 
         $total_cost = DB::table('order_items')
-        ->leftJoin('products', 'order_items.product_id', '=', 'products.id')
-        ->sum(DB::raw('order_items.quantity * products.cost_price'));
+            ->leftJoin('products', 'order_items.product_id', '=', 'products.id')
+            ->sum(DB::raw('order_items.quantity * products.cost_price'));
 
         $total_profit = $total_price - $total_cost;
 
@@ -43,14 +43,26 @@ class DashboardController extends Controller
         // ->limit(5)->get();
 
         $top_sales = DB::table('order_items')
-           ->leftJoin('products','products.id','=','order_items.product_id')
-           ->select('products.name',
+            ->leftJoin('products','products.id','=','order_items.product_id')
+            ->select('products.name',
                 DB::raw('SUM(order_items.quantity) as count'),
                 DB::raw('SUM(order_items.quantity * products.price) as total'))
-           ->groupBy('products.name')
-           ->orderBy('count','desc')
-           ->limit(5)
-           ->get();
+            ->groupBy('products.name')
+            ->orderBy('count','desc')
+            ->limit(5)
+            ->get();
+
+        $produk_kurang = DB::table('products')
+            ->where('stock', '>', 0)
+            ->whereColumn('stock', '<', 'std_stock')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        $produk_habis = DB::table('products')
+            ->where('stock','<=',0)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
 
         return view('pages.dashboard', [
             'total_sales'     => $total_sales,
@@ -62,6 +74,8 @@ class DashboardController extends Controller
             'total_cost'      => $total_cost,
             'total_profit'    => $total_profit,
             'sales_monthly'   => $sales_monthly,
+            'produk_kurang'   => $produk_kurang,
+            'produk_habis'    => $produk_habis,
             'top_sales'       => $top_sales
         ]);
     }

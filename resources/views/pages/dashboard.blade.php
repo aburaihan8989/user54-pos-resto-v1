@@ -150,14 +150,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-12 col-sm-12">
-                    {{-- <div class="card">
-                        <div class="card-header">
-                            <h4>Trend Transaksi Harian</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </div> --}}
                     <div class="card">
                         <div class="card-header">
                             <h4>Top Sales Produk</h4>
@@ -200,7 +192,95 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
+                <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Produk Stock Kurang</h4>
+                        </div>
+                        <div class="card-body" style="height: 405px;">
+                            <div class="table-responsive">
+                                <table class="table-striped table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Nama Produk</th>
+                                            <th scope="col">Standar</th>
+                                            <th scope="col">Actual Stock</th>
+                                            <th scope="col">Status Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; ?>
+                                        @foreach ($produk_kurang as $item)
+                                            <tr>
+                                                <td>
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->name }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->std_stock }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->stock }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-warning">Kurang</span>
+                                                </td>
+                                            </tr>
+                                            <?php $no++; ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Produk Stock Habis</h4>
+                        </div>
+                        <div class="card-body" style="height: 405px;">
+                            <div class="table-responsive">
+                                <table class="table-striped table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Nama Produk</th>
+                                            <th scope="col">Standar</th>
+                                            <th scope="col">Actual Stock</th>
+                                            <th scope="col">Status Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; ?>
+                                        @foreach ($produk_habis as $item)
+                                            <tr>
+                                                <td>
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->name }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->std_stock }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->stock }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-danger">Habis</span>
+                                                </td>
+                                            </tr>
+                                            <?php $no++; ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
